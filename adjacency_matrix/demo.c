@@ -14,5 +14,9 @@ int main(int argc, char *argsv[])
     read_adjacency_matrix(&graph, fp);
     show_adjacency_matrix(graph);
 
+    if (issparse(graph)) {
+        puts("The graph is sparse.");
+    }
+
     return 0;
 }

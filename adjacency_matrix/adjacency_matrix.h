@@ -6,6 +6,7 @@
 */
 
 #define SIZE 10
+#define SPARSENESS_THRESHOLD .75
 
 #include <stdio.h>
 
@@ -25,3 +26,6 @@ void show_adjacency_matrix(struct adjmat_t *);
 
 /** Reads an adjacency matrix from a file */
 void read_adjacency_matrix(struct adjmat_t **, FILE *fp);
+
+/** Determines whether or not a graph is sparse. */
+int issparse(struct adjmat_t *);

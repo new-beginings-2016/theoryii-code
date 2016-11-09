@@ -75,3 +75,20 @@ void read_adjacency_matrix(struct adjmat_t **graph, FILE *fp)
         mset(*graph, i - 1, j - 1);
     }
 }
+
+int issparse(struct adjmat_t *graph)
+{
+    int i, j, zerocount, totalcount;
+
+    zerocount = 0;
+    for (i = 0; i < graph->size; i++) {
+        for (j = 0; j < graph->size; j++) {
+            if (!graph->matrix[i][j]) {
+                zerocount++;
+            }
+        }
+    }
+    totalcount = graph->size * graph->size;
+
+    return ((float) zerocount / totalcount) >= SPARSENESS_THRESHOLD;
+}
