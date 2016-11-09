@@ -29,3 +29,9 @@ void read_adjacency_matrix(struct adjmat_t **, FILE *fp);
 
 /** Determines whether or not a graph is sparse. */
 int issparse(struct adjmat_t *);
+
+/** Determines if two graphs are identical */
+int issame(struct adjmat_t *, struct adjmat_t *);
+
+/** Computes the transitive closure of a graph */
+void transitive_closure(struct adjmat_t *tc, struct adjmat_t *graph);
