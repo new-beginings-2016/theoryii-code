@@ -25,7 +25,7 @@ void mset(struct adjmat_t *graph, int row, int column);
 void show_adjacency_matrix(struct adjmat_t *);
 
 /** Reads an adjacency matrix from a file */
-void read_adjacency_matrix(struct adjmat_t **, FILE *fp);
+void read_adjacency_matrix(struct adjmat_t *, FILE *fp);
 
 /** Determines whether or not a graph is sparse. */
 int issparse(struct adjmat_t *);

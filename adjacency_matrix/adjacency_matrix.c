@@ -56,23 +56,21 @@ int get_num(FILE *fp)
     return number;
 }
 
-void read_adjacency_matrix(struct adjmat_t **graph, FILE *fp)
+void read_adjacency_matrix(struct adjmat_t *graph, FILE *fp)
 {
     int size, i, j;
     long file_size;
 
-    *graph = malloc(sizeof(struct adjmat_t));
-    
     fseek(fp, 0L, SEEK_END);
     file_size = ftell(fp);
     fseek(fp, 0L, SEEK_SET);
 
     size = get_num(fp);
-    (*graph)->size = size;
+    graph->size = size;
 
     while(ftell(fp) != file_size) {
         i = get_num(fp); j = get_num(fp);
-        mset(*graph, i - 1, j - 1);
+        mset(graph, i - 1, j - 1);
     }
 }
 

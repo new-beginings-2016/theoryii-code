@@ -10,8 +10,14 @@ int main(int argc, char *argsv[])
 {
     FILE *fp = fopen("input.txt", "r");
     struct adjmat_t *graph;
+    int size;
 
-    read_adjacency_matrix(&graph, fp);
+    fscanf(fp, "%d", &size);
+    fseek(fp, 0L, SEEK_SET);
+
+    make_adjacency_matrix(&graph, size);
+
+    read_adjacency_matrix(graph, fp);
     show_adjacency_matrix(graph);
 
     if (issparse(graph)) {
