@@ -5,6 +5,7 @@
 #include "adjacency_matrix.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char *argsv[])
 {
@@ -24,5 +25,7 @@ int main(int argc, char *argsv[])
         puts("The graph is sparse.");
     }
 
+    fclose(fp);
+    free(graph);
     return 0;
 }
