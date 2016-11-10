@@ -1,13 +1,13 @@
-CC = gcc
+CC=gcc
+CCFLAGS=-g -Wall -pedantic
 
-OBJS = dfa.o
+OBJS=dfa.o demo.o
 
-all: dfa
+demo: $(OBJS)
+	$(CC) -o demo $(OBJS)
 
-dfan: $(OBJS)
-	$(CC) -o dfa $(OBJS)
 .c.o:
-	$(CC) $(CFLAGS) -g -Wall -c $<
+	$(CC) $(CCFLAGS) -c $<
 	
 clean:
 	rm -f dfa *.o core
