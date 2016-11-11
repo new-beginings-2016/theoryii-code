@@ -21,11 +21,6 @@ void make_adjacency_matrix(struct adjmat_t ** graph, int size)
     }
 }
 
-void mset(struct adjmat_t *graph, int row, int column)
-{
-    graph->matrix[row][column] = graph->matrix[column][row] = 1;
-}
-
 void show_adjacency_matrix(struct adjmat_t * graph)
 {
     int size, i, j;
