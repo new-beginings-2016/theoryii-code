@@ -1,6 +1,6 @@
 OBJS=adjacency_matrix.o demo.o
 CC=gcc
-CCFLAGS=-g
+CCFLAGS=-g -pedantic -Wall
 
 demo: $(OBJS)
 	$(CC) $(CCFLAGS) -o demo $(OBJS)

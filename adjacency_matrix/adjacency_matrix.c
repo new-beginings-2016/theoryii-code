@@ -30,6 +30,8 @@ void show_adjacency_matrix(struct adjmat_t * graph)
 {
     int size, i, j;
 
+    puts(graph->name);
+
     size = graph->size;
     for (i = 0; i < size; i++) {
         for (j = 0; j < size; j++) {
@@ -58,19 +60,18 @@ int get_num(FILE *fp)
 
 void read_adjacency_matrix(struct adjmat_t *graph, FILE *fp)
 {
-    int size, i, j;
-    long file_size;
+    int size, i, edges, v1, v2;
 
-    fseek(fp, 0L, SEEK_END);
-    file_size = ftell(fp);
-    fseek(fp, 0L, SEEK_SET);
+    fgets(graph->name, MAX_NAME_LENGTH, fp);
 
-    size = get_num(fp);
+    size = get_num(fp); /* read the number of vertices */
     graph->size = size;
 
-    while(ftell(fp) != file_size) {
-        i = get_num(fp); j = get_num(fp);
-        mset(graph, i - 1, j - 1);
+    edges = get_num(fp);
+
+    for (i = 0; i < edges; i++) {
+	v1 = get_num(fp) - 1; v2 = get_num(fp) - 1; /* vertices are labeled 1...N */
+	graph->matrix[v1][v2] = 1; 
     }
 }
 
@@ -80,12 +81,14 @@ int issparse(struct adjmat_t *graph)
 
     zerocount = 0;
     for (i = 0; i < graph->size; i++) {
-        for (j = 0; j < graph->size; j++) {
-            if (!graph->matrix[i][j]) {
+        for (j = i; j < graph->size; j++) { 
+            if (!graph->matrix[i][j] && !graph->matrix[j][i]) {
                 zerocount++;
             }
         }
     }
+
+    zerocount *= 2;
     totalcount = graph->size * graph->size;
 
     return ((float) zerocount / totalcount) >= SPARSENESS_THRESHOLD;
