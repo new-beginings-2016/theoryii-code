@@ -5,6 +5,8 @@
 
 #include "adjacency_matrix.h"
 
+#define SQUARE(x) x*x
+
 void make_adjacency_matrix(struct adjmat_t ** graph, int size)
 {
     int i, j;
@@ -84,7 +86,7 @@ int issparse(struct adjmat_t *graph)
     }
 
     zerocount *= 2;
-    totalcount = graph->size * graph->size;
+    totalcount = SQUARE(graph->size); 
 
     return ((float) zerocount / totalcount) >= SPARSENESS_THRESHOLD;
 }
