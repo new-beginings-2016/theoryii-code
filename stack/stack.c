@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include "stack.h"
+#include "llist.h"
 #include "../bool.h"
 
 void initialize_stack(struct stack_t **stack)

@@ -2,7 +2,7 @@
 // Bryant W. York
 // November 2016
 
-#include "llist.h"
+struct llist_t;
 
 struct stack_t {
     struct llist_t *list;
