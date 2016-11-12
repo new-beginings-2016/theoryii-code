@@ -7,17 +7,14 @@
 
 #define SQUARE(x) x*x
 
-void make_adjacency_matrix(struct adjmat_t ** graph, int size)
+void make_adjacency_matrix(struct adjmat_t ** graph)
 {
     int i, j;
 
-    assert(size <= SIZE);
     *graph = malloc(sizeof(struct adjmat_t));
 
-    (*graph)->size = size;
-
-    for (i = 0; i < size; i++) {
-        for (j = 0; j < size; j++) {
+    for (i = 0; i < SIZE; i++) {
+        for (j = 0; j < SIZE; j++) {
             (*graph)->matrix[i][j] = 0;
         }
     }

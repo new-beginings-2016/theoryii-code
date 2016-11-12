@@ -21,7 +21,7 @@ struct adjmat_t {
 };
 
 /** Initialize and populate adjacency matrix. */
-void make_adjacency_matrix(struct adjmat_t **, int size);
+void make_adjacency_matrix(struct adjmat_t **);
 
 /** Prints matrix to stdout. */
 void show_adjacency_matrix(struct adjmat_t *);
