@@ -13,8 +13,8 @@ void make_adjacency_matrix(struct adjmat_t ** graph)
 
     *graph = malloc(sizeof(struct adjmat_t));
 
-    for (i = 0; i < SIZE; i++) {
-        for (j = 0; j < SIZE; j++) {
+    for (i = 0; i < VERTICES; i++) {
+        for (j = 0; j < VERTICES; j++) {
             (*graph)->matrix[i][j] = 0;
         }
     }
@@ -22,13 +22,13 @@ void make_adjacency_matrix(struct adjmat_t ** graph)
 
 void show_adjacency_matrix(struct adjmat_t * graph)
 {
-    int size, i, j;
+    int vertices, i, j;
 
     puts(graph->name);
 
-    size = graph->size;
-    for (i = 0; i < size; i++) {
-        for (j = 0; j < size; j++) {
+    vertices = graph->vertices;
+    for (i = 0; i < vertices; i++) {
+        for (j = 0; j < vertices; j++) {
             printf("%d ", graph->matrix[i][j]);
         }
         puts("");
@@ -54,16 +54,16 @@ int get_num(FILE *fp)
 
 void read_adjacency_matrix(struct adjmat_t *graph, FILE *fp)
 {
-    int size, i, edges, v1, v2;
+    int vertices, i, size, v1, v2;
 
     fgets(graph->name, MAX_NAME_LENGTH, fp);
 
-    size = get_num(fp); /* read the number of vertices */
-    graph->size = size;
+    vertices = get_num(fp); /* read the number of vertices */
+    graph->vertices = vertices;
 
-    edges = get_num(fp);
+    size = get_num(fp);
 
-    for (i = 0; i < edges; i++) {
+    for (i = 0; i < size; i++) {
 	v1 = get_num(fp) - 1; v2 = get_num(fp) - 1; /* vertices are labeled 1...N */
 	graph->matrix[v1][v2] = 1; 
     }
@@ -74,8 +74,8 @@ int issparse(struct adjmat_t *graph)
     int i, j, zerocount, totalcount;
 
     zerocount = 0;
-    for (i = 0; i < graph->size; i++) {
-        for (j = i; j < graph->size; j++) { 
+    for (i = 0; i < graph->vertices; i++) {
+        for (j = i; j < graph->vertices; j++) { 
             if (!graph->matrix[i][j] && !graph->matrix[j][i]) {
                 zerocount++;
             }
@@ -83,7 +83,7 @@ int issparse(struct adjmat_t *graph)
     }
 
     zerocount *= 2;
-    totalcount = SQUARE(graph->size); 
+    totalcount = SQUARE(graph->vertices); 
 
     return ((float) zerocount / totalcount) >= SPARSENESS_THRESHOLD;
 }

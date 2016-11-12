@@ -8,7 +8,7 @@
     New Beginnings, Theory II Code Repo
 */
 
-#define SIZE 10
+#define VERTICES 20
 #define SPARSENESS_THRESHOLD .75
 #define MAX_NAME_LENGTH 20
 
@@ -16,8 +16,8 @@
 
 struct adjmat_t {
     char name[MAX_NAME_LENGTH];
-    int matrix[SIZE][SIZE];
-    int size;
+    int matrix[VERTICES][VERTICES];
+    int vertices;
 };
 
 /** Initialize and populate adjacency matrix. */
