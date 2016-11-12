@@ -2,18 +2,13 @@
 // Bryant W. York
 // November 2016
 
-struct node_t
-{
-  int data;
-  struct node_t* next;
-};
+#include "llist.h"
 
 struct stack_t {
-    struct node_t *head;
+    struct llist_t *list;
     int size;
 };
 
-
-void initialize_stack(struct stack_t *);
-int push(struct stack_t *, struct node_t *);
-struct node_t * pop(struct stack_t *);
+void initialize_stack(struct stack_t **);
+void push(struct stack_t *, int);
+int pop(struct stack_t *);

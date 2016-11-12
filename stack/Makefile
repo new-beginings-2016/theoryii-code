@@ -1,6 +1,6 @@
 CC = gcc
 CCFLAGS=-Wall -pedantic -g
-OBJS = stest.o stack.o
+OBJS = stest.o stack.o llist.o
 
 all: stest
 

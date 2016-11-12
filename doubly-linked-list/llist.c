@@ -26,16 +26,34 @@ void add(struct llist_t *list, int data)
 {
     struct node_t *new_node;
 
+    make_node(&new_node, data, 0, 0);
     if (!list->head)
     {
-	make_node(&(list->head), data, 0, 0);
+	list->head = new_node;
 
 	list->tail = list->head;
     } else {
-	make_node(&new_node, data, list->tail,  0);
+	new_node->prev = list->tail;
 
 	list->tail->next = new_node;
 	list->tail = new_node;
+    }
+}
+
+void add_first(struct llist_t *list, int data)
+{
+    struct node_t *new_node;
+    
+    make_node(&new_node, data, 0, 0);
+    if (!list->head)
+    {
+	list->head = new_node;
+	list->tail = list->head;
+    } else {
+	new_node->next = list->head;
+	list->head->prev = new_node;
+
+	list->head = new_node;
     }
 }
 
@@ -72,7 +90,7 @@ void free_list(struct llist_t *list)
     struct node_t *d;
 
     d = list->head;
-    while (d = list->head) {
+    while ((d = list->head)) {
 	list->head = list->head->next;
 	free(d); d = 0;
     }

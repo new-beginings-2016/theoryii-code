@@ -6,42 +6,36 @@
 #include "stack.h"
 #include "../bool.h"
 
-void initialize_stack(struct stack_t *stack)
+void initialize_stack(struct stack_t **stack)
 {
-    stack->head = 0;
-    stack->size = 0;
+    struct llist_t **l;
+
+    *stack = malloc(sizeof(struct stack_t));
+    l = &((*stack)->list);
+
+    make_list(l);
+
+    (*stack)->size = 0;
 }
 
-int push(struct stack_t *stack, struct node_t *node)
+void push(struct stack_t *stack, int data)
 {
-    if (!stack->head)
-    {
-        stack->head = node;
-        stack->size++;
-        stack->head->next = 0;
-    }
-    else
-    {
-        node->next = stack->head;
-        stack->head = node;
-
-        stack->size++;
-    }
-
-    return SUCCESS;
+    add_first(stack->list, data);   
+    stack->size++;
 }
 
-struct node_t * pop(struct stack_t *stack)
+int pop(struct stack_t *stack)
 {
-    struct node_t *r;
+    int data;
+    struct node_t *t;
+   
+    data = stack->list->head->data;
+    t = stack->list->head;
 
-    if (!stack->head) {
-        return 0;
-    }
+    stack->list->head = stack->list->head->next;
 
-    r = stack->head;
-    stack->head = stack->head->next;
+    free(t); t = 0;
     stack->size--;
 
-    return r;
+    return data;
 }

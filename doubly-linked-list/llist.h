@@ -21,3 +21,4 @@ void make_list(struct llist_t **list);
 
 void add(struct llist_t *list, int data);
 
+void add_first(struct llist_t *list, int data);
