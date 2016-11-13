@@ -6,7 +6,8 @@
 struct llist_t;
 
 struct adjlist_t {
-    struct llist_t *vertices[MAX_VERTEX_COUNT]; char name[MAX_NAME_LENGTH];
+    struct llist_t *vertices[MAX_VERTEX_COUNT]; 
+    char name[MAX_NAME_LENGTH];
     int size;
     int vertexcount;
 };

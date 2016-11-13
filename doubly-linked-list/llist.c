@@ -43,7 +43,7 @@ void add_to_list(struct llist_t *list, int data)
 void add_first(struct llist_t *list, int data)
 {
     struct node_t *new_node;
-    
+
     make_node(&new_node, data, 0, 0);
     if (!list->head)
     {
@@ -59,30 +59,36 @@ void add_first(struct llist_t *list, int data)
 
 void print_list(struct llist_t *list)
 {
-    struct node_t *p = list->head;
+    struct node_t *p;
 
-    while (p) {
-	printf("%d ",  p->data);
-	p = p->next;
+    if ((p = list->head)) {
+
+	while (p) {
+	    printf("%d ",  p->data);
+	    p = p->next;
+	}
+
+	puts("");
+
+	p = 0;
     }
-
-    puts("");
-
-    p = 0;
 }
 
 void print_list_backwards(struct llist_t *list)
 {
-    struct node_t *p = list->tail;
+    struct node_t *p;
 
-    while (p) {
-	printf("%d ", p->data);
-	p = p->prev;
+    if ((p = list->tail)) {
+
+	while (p) {
+	    printf("%d ", p->data);
+	    p = p->prev;
+	}
+
+	puts("");
+
+	p = 0;
     }
-    
-    puts("");
-
-    p = 0;
 }
 
 void free_list(struct llist_t *list)
