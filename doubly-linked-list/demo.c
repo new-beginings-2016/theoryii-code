@@ -10,7 +10,7 @@ int main(int argc, char **argsv)
     for (i = 1; i < argc; i++) {
 	a = atoi(argsv[i]);
 
-	add(myList, a);
+	add_to_list(myList, a);
     }
 
     print_list(myList);

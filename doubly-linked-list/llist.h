@@ -19,6 +19,8 @@ void make_node(struct node_t **node, int data, struct node_t *prev, struct node_
 
 void make_list(struct llist_t **list);
 
-void add(struct llist_t *list, int data);
+void add_to_list(struct llist_t *list, int data);
 
 void add_first(struct llist_t *list, int data);
+
+void free_list(struct llist_t *list);

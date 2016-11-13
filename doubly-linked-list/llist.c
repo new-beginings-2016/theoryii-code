@@ -22,7 +22,7 @@ void make_list(struct llist_t **list)
     (*list)->tail = (*list)->head;
 }
 
-void add(struct llist_t *list, int data)
+void add_to_list(struct llist_t *list, int data)
 {
     struct node_t *new_node;
 
