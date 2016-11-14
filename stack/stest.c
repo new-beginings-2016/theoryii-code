@@ -23,5 +23,7 @@ int main(int argc, char *argsv[])
     } 
     puts("");
 
+    free_stack(stack);
+
     return 0;
 }
