@@ -1,11 +1,8 @@
-//stack.c
-// Bryant W. York
-// November 2016
 
 #include <stdlib.h>
 #include "stack.h"
 #include "llist.h"
-#include "../bool.h"
+#include "bool.h"
 
 void initialize_stack(struct stack_t **stack)
 {
@@ -39,4 +36,18 @@ int pop(struct stack_t *stack)
     stack->size--;
 
     return data;
+}
+
+int is_empty(struct stack_t *s) {
+    if (s->size) {
+	return FALSE;
+    }
+
+    return TRUE;
+}
+
+void free_stack(struct stack_t *s)
+{
+    free_list(s->list);
+    free(s);
 }

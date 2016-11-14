@@ -1,1 +1,1 @@
-../theoryii-code/bool.h
+../bool.h
