@@ -26,16 +26,16 @@ char * get_word(FILE *fp)
     char ch, **s, *c;
 
     s = malloc(sizeof(char *));
-   *s = malloc(sizeof(char) * MAX_LINE_LENGTH);
+    *s = malloc(sizeof(char) * MAX_LINE_LENGTH);
 
-   c = *s;
-   while (isspace(ch = fgetc(fp)));
-   ungetc(ch, fp);
-    
-   while (!(isspace(ch = fgetc(fp)))) {
-       *c = ch;
-       c++;
-   }
+    c = *s;
+    while (isspace(ch = fgetc(fp)));
+    ungetc(ch, fp);
+
+    while (!(isspace(ch = fgetc(fp)))) {
+        *c = ch;
+        c++;
+    }
 
     *c = '\0';
 
@@ -46,11 +46,11 @@ char * get_word(FILE *fp)
 /* checks to see if the next word in the file is equivalent to *label */
 int get_label(FILE *fp, char *label)
 {
-   char *s;
+    char *s;
 
-   s = get_word(fp);
+    s = get_word(fp);
 
-   return strncmp(s, label, MAX_LINE_LENGTH);
+    return strncmp(s, label, MAX_LINE_LENGTH);
 }
 
 void make_dfa(struct dfa_t **p_dfa) {
@@ -74,7 +74,7 @@ void check_label(FILE *fp, char *labelname)
 
 /* reads a list of numbers until end of line.
    returns number of numbers read
-*/
+ */
 int get_nums(int **arr, int max_len, char *line) 
 {
     char *w;
@@ -88,13 +88,13 @@ int get_nums(int **arr, int max_len, char *line)
     while ((w = strtok(0, " \n")) && count < max_len) {
         nums[count++] = atoi(w);
     }
-    
+
     return count;
 }
 
 /* reads a list of characters until end of line.
-    returns number of numbers read
-*/
+   returns number of numbers read
+ */
 char get_chars(char **arr, int max_len, char *line)
 {
     char *w, *chars;
@@ -108,6 +108,8 @@ char get_chars(char **arr, int max_len, char *line)
     while (( w = strtok(0, " ")) && count < max_len) {
         chars[count++] = *w;
     }
+
+    chars[count] = '\0';
 
     return count;
 }
@@ -145,13 +147,16 @@ void read_accept(struct dfa_t *dfa, int max_len, FILE *fp)
 
 void read_dfa(struct dfa_t * dfa, FILE *fp)
 {
+    char line[MAX_LINE_LENGTH], *tok, *alpha;
+    int i, j;
+
     /* Read the name */
     check_label(fp, "Name:");
     strncpy(dfa->name, get_word(fp), MAX_NAME_LENGTH);
     dfa->name = realloc(dfa->name, strlen(dfa->name));
 
     /* Read the alphabet */
-    read_alphabet(dfa, 80, fp);
+    read_alphabet(dfa, MAX_LETTERS + 1, fp);
 
     /* Read in number of states */
     check_label(fp, "States:");
@@ -162,7 +167,23 @@ void read_dfa(struct dfa_t * dfa, FILE *fp)
     dfa->start_state = get_num(fp);
 
     /* Read in accept states */
-    read_accept(dfa, 80, fp);
+    read_accept(dfa, MAX_STATES + 1, fp);
+
+    /* Read in transition table */
+    fgets(line, MAX_LINE_LENGTH + 1, fp);
+    tok = strtok(line, " \n");
+    alpha = dfa->alphabet;
+
+    printf("Transition Table.\n");
+    while (tok) {
+        if (*tok != *alpha) {
+            fprintf(stderr, "Invalid Input: Transition Table\n");
+        }
+        alpha++;
+        tok = strtok(0, " ");
+    }
+
+    for (i = 0; i < 
 }
 
 int accepts_input(struct dfa_t * dfa, int *input, int len)
@@ -185,9 +206,9 @@ int accepts_input(struct dfa_t * dfa, int *input, int len)
 
 void print_dfa(struct dfa_t *dfa)
 {
-    int i;
+    int i, j;
     printf("Name: %s\n", dfa->name);
-    
+
     printf("Alphabet: ");
     for (i = 0; i < dfa->alphabet_size; i++) {
         printf("%c ", (char) dfa->alphabet[i]);
@@ -199,6 +220,22 @@ void print_dfa(struct dfa_t *dfa)
 
     printf("Accept States: ");
     for (i = 0; i < dfa->accept_states; i++) {
-            printf("%d ", dfa->accept[i]);
+        printf("%d ", dfa->accept[i]);
     } puts("");
+
+    printf("Transition Table: \n");
+    printf(" ");
+    for (i = 0; i < dfa->num_states; i++) {
+        if (i > 0) {
+            printf("%d ", i);
+        }
+        for (j = 0; j < dfa->alphabet_size; j++) {
+            if (i == 0) {
+                printf("%c ", dfa->alphabet[j]);
+            } else {
+                printf("%d ", dfa->transition_table[i][j]);
+            }
+        }
+        puts("");
+    }
 }

@@ -16,7 +16,7 @@
 #define MAX_LINE_LENGTH 80
 
 struct dfa_t {
-    int transition_table[MAX_STATES + 1][MAX_LETTERS];
+    int **transition_table;
     char *name;
     char *alphabet;
     int *accept;
