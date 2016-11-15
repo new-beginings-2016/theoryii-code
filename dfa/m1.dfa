@@ -1,0 +1,10 @@
+Name: First_DFA
+Alphabet: 0 1
+States: 3 
+Start: 0
+Accept: 1 
+Transition Function:
+0 1 
+0 1 0
+1 2 2
+2 1 0

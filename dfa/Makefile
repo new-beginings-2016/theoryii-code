@@ -10,4 +10,4 @@ demo: $(OBJS)
 	$(CC) $(CCFLAGS) -c $<
 	
 clean:
-	rm -f dfa *.o core
+	rm -f dfa *.o core demo
