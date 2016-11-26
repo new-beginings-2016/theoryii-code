@@ -2,11 +2,10 @@ CC = gcc
 CCFLAGS=-Wall -pedantic -g
 OBJS = stest.o
 
-all: stest
 
 test: $(OBJS)
-	$(CC) -o stest $(OBJS) test.c
+	$(CC) -o executable $(OBJS)
 .c.o:
-	$(CC) $(CFLAGS) -g -Wall -c $<
+	$(CC) $(CCFLAGS) -g -Wall -c $<
 clean:
-	rm -f stest $(OBJS)
+	rm -f executable $(OBJS)
