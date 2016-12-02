@@ -36,6 +36,9 @@ int main(int argc, char *argsv[])
 	insert(pqueue, make_node(vertex_name, key));
     }
 
+    remove_node(pqueue, 4);
+    insert(pqueue, make_node(4, 12));
+
     for (i = 0; i < HEAP_SIZE; i++)
     {
 	tmp = extract_min(pqueue);
